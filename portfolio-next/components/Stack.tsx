@@ -1,0 +1,53 @@
+import Reveal from "./Reveal";
+import { stack } from "@/lib/data";
+
+export default function Stack() {
+  return (
+    <section id="stack" className="py-[120px]">
+      <div className="mx-auto max-w-[1180px] px-8">
+        <div className="mb-14 max-w-[640px]">
+          <Reveal>
+            <span className="mb-3.5 block font-mono text-[0.8rem] text-cobalt">
+              02 — Stack
+            </span>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="mb-3.5 font-display text-[clamp(1.8rem,3.4vw,2.6rem)] font-semibold tracking-tight">
+              The toolkit, end to end.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-[1.02rem] leading-[1.6] text-ink-dim">
+              From the database up to the search results page.
+            </p>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.1}>
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {stack.map((group) => (
+              <div
+                key={group.group}
+                className="bg-surface p-7 transition-colors hover:bg-surface-2"
+              >
+                <h4 className="mb-4 font-mono text-[0.78rem] uppercase tracking-[0.08em] text-ink-faint">
+                  {group.group}
+                </h4>
+                <ul className="flex flex-col gap-2.5">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center gap-2.5 text-[0.94rem] before:h-[5px] before:w-[5px] before:flex-shrink-0 before:rounded-full before:bg-cobalt"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
