@@ -5,36 +5,60 @@ const config: Config = {
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
   ],
+
   theme: {
     extend: {
       colors: {
-        bg: "#0A0D13",
-        "bg-alt": "#0D1119",
-        surface: "#12161F",
-        "surface-2": "#161B26",
+        bg: "var(--background)",
+        "bg-alt": "var(--background-alt)",
+        surface: "var(--surface)",
+        "surface-2": "var(--surface-2)",
+
         border: {
-          DEFAULT: "rgba(231,234,240,0.08)",
-          strong: "rgba(231,234,240,0.14)",
+          DEFAULT: "var(--border)",
+          strong: "var(--border-strong)",
         },
+
         ink: {
-          DEFAULT: "#E7EAF0",
-          dim: "#8B93A7",
-          faint: "#565E70",
+          DEFAULT: "var(--foreground)",
+          dim: "var(--foreground-dim)",
+          faint: "var(--foreground-faint)",
         },
-        cobalt: "#5B8CFF",
-        amber: "#FFB454",
-        green: "#6EE7B7",
+
+        cobalt: "var(--accent)",
+        amber: "var(--accent-secondary)",
+        green: "var(--green)",
       },
+
       fontFamily: {
         display: ["var(--font-display)"],
         body: ["var(--font-body)"],
         mono: ["var(--font-mono)"],
       },
+
       keyframes: {
-        blink: { "50%": { opacity: "0" } },
-        marquee: { to: { transform: "translateX(-50%)" } },
-        pulse2: { "0%,100%": { opacity: "1" }, "50%": { opacity: "0.3" } },
+        blink: {
+          "50%": {
+            opacity: "0",
+          },
+        },
+
+        marquee: {
+          to: {
+            transform: "translateX(-50%)",
+          },
+        },
+
+        pulse2: {
+          "0%,100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.3",
+          },
+        },
       },
+
       animation: {
         blink: "blink 1s steps(1) infinite",
         marquee: "marquee 26s linear infinite",
@@ -42,6 +66,7 @@ const config: Config = {
       },
     },
   },
+
   plugins: [],
 };
 
