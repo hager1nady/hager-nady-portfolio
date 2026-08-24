@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
+import { LanguageProvider } from "@/lib/LanguageContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hagernady.dev"),
@@ -28,10 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-grid font-body">
-        <CustomCursor />
-        {children}
+        <LanguageProvider>
+          <CustomCursor />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

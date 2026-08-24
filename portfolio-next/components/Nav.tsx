@@ -2,17 +2,20 @@
 
 import { useEffect, useState } from "react";
 import Magnetic from "./Magnetic";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#stack", label: "Stack" },
-  { href: "#work", label: "Work" },
-  { href: "#leadership", label: "Experience" },
+  { href: "#about", key: "nav.about" },
+  { href: "#stack", key: "nav.stack" },
+  { href: "#work", key: "nav.work" },
+  { href: "#leadership", key: "nav.experience" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [isLight, setIsLight] = useState(false);
+
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -43,6 +46,10 @@ export default function Nav() {
     }
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "ar" : "en");
+  };
+
   return (
     <nav
       className={`fixed inset-x-0 top-0 z-[100] border-b transition-colors duration-300 backdrop-blur-md ${
@@ -51,7 +58,12 @@ export default function Nav() {
           : "border-transparent bg-bg/40"
       }`}
     >
-      <div className="mx-auto flex max-w-[1180px] items-center justify-between px-8 py-[18px]">
+      <div
+        className={`mx-auto flex max-w-[1180px] items-center justify-between px-8 py-[18px] ${
+          language === "ar" ? "flex-row-reverse" : ""
+        }`}
+      >
+        {/* Logo */}
         <a
           href="#top"
           className="flex items-center gap-2 font-display text-[1.05rem] font-bold tracking-tight"
@@ -60,24 +72,47 @@ export default function Nav() {
           Hager Nady
         </a>
 
-        <div className="hidden items-center gap-9 md:flex">
+        <div
+          className={`hidden items-center gap-9 md:flex ${
+            language === "ar" ? "flex-row-reverse" : ""
+          }`}
+        >
+          {/* Navigation Links */}
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               className="group relative text-[0.88rem] font-medium text-ink-dim transition-colors hover:text-ink"
             >
-              {l.label}
+              {t(l.key)}
 
               <span className="absolute bottom-0 left-0 h-px w-0 bg-cobalt transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
 
+          {/* Language Toggle */}
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            aria-label={
+              language === "en"
+                ? "Switch to Arabic"
+                : "Switch to English"
+            }
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-ink transition-all duration-300 hover:border-cobalt hover:bg-cobalt/10"
+          >
+            {language === "en" ? "AR" : "EN"}
+          </button>
+
           {/* Theme Toggle */}
           <button
             type="button"
             onClick={toggleTheme}
-            aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
+            aria-label={
+              isLight
+                ? "Switch to dark mode"
+                : "Switch to light mode"
+            }
             className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-ink transition-all duration-300 hover:border-cobalt hover:bg-cobalt/10"
           >
             <span className="text-base">
@@ -85,12 +120,13 @@ export default function Nav() {
             </span>
           </button>
 
+          {/* Contact */}
           <Magnetic>
             <a
               href="#contact"
               className="rounded-full border border-border-strong bg-surface px-[18px] py-[9px] text-[0.85rem] font-semibold transition-colors hover:border-cobalt hover:bg-cobalt/10"
             >
-              Get in touch
+              {t("nav.contact")}
             </a>
           </Magnetic>
         </div>
